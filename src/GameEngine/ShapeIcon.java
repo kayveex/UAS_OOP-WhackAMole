@@ -6,7 +6,7 @@ import javax.swing.*;
 /**
  * An icon that contains a moveable shape. The shape will be placed into this Icon so it can be put in a JLabel
  *
- * @author Kelompok 1
+ * @author Kelompok 2
  *
  */
 public class ShapeIcon implements Icon {
