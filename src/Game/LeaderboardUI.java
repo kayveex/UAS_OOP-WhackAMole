@@ -4,21 +4,31 @@
  */
 package Game;
 
-import javax.swing.ImageIcon;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author DELL
  */
 public class LeaderboardUI extends javax.swing.JFrame {
-
-    /**
-     * Creates new form LeaderboardUI
-     */
+    private boolean databaru;
+    private final KoneksiSQL koneksi = new KoneksiSQL();
+    
+       
+        //END
     public LeaderboardUI() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:\\JAVA OOP\\UASmk2\\src\\Assets\\ico.png");
-        this.setIconImage(img.getImage());
+        getData();
+        databaru = true;
+        
         
         //Configuration for MainMenuUI :
         this.setVisible(true);
@@ -38,7 +48,16 @@ public class LeaderboardUI extends javax.swing.JFrame {
     private void initComponents() {
 
         backLDBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TScore = new javax.swing.JTable();
+        name3 = new javax.swing.JTextField();
+        name1 = new javax.swing.JTextField();
+        name2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         bgLD = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Whack A Mole | 3A-PSTI");
@@ -57,10 +76,98 @@ public class LeaderboardUI extends javax.swing.JFrame {
         getContentPane().add(backLDBtn);
         backLDBtn.setBounds(60, 80, 100, 30);
 
+        jScrollPane1.setForeground(new java.awt.Color(255, 153, 51));
+
+        TScore.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TScore.setForeground(new java.awt.Color(255, 153, 102));
+        TScore.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nama", "Score", "Mode"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        TScore.setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
+        jScrollPane1.setViewportView(TScore);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(60, 160, 700, 210);
+
+        name3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        name3.setText("Input Difficulty Level");
+        name3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                name3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(name3);
+        name3.setBounds(410, 380, 150, 30);
+
+        name1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        name1.setText("Input Your Name");
+        name1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                name1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(name1);
+        name1.setBounds(50, 380, 150, 30);
+
+        name2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        name2.setText("Input Your Score");
+        name2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                name2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(name2);
+        name2.setBounds(230, 380, 150, 30);
+
+        jButton1.setBackground(new java.awt.Color(255, 102, 102));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Clear");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(690, 380, 75, 30);
+
+        jButton2.setBackground(new java.awt.Color(0, 255, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Save");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(590, 380, 75, 30);
+
+        bgLD.setForeground(new java.awt.Color(51, 0, 255));
         bgLD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/LdUI.png"))); // NOI18N
         bgLD.setToolTipText("");
+        bgLD.setCursor(new java.awt.Cursor(java.awt.Cursor.NW_RESIZE_CURSOR));
         getContentPane().add(bgLD);
         bgLD.setBounds(0, 0, 800, 600);
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(30, 170, 100, 100);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(20, 160, 300, 210);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -71,6 +178,98 @@ public class LeaderboardUI extends javax.swing.JFrame {
         me.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backLDBtnActionPerformed
+
+    private void getData(){
+        try{
+            Connection conn = koneksi.getKoneksiSQL();
+            Statement stm = conn.createStatement();
+            ResultSet result = stm.executeQuery("select * from leaderboard");
+            
+            DefaultTableModel model = (DefaultTableModel) TScore.getModel();
+            
+            // reset data tabel
+            model.setRowCount(0);
+            
+            while(result.next()){
+               String Nama = result.getString("nama");
+               String Score = result.getString("Score");
+               String Mode = result.getString("Mode");
+               
+               model.addRow(new Object[]{Nama, Score, Mode});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LeaderboardUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    private void name3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_name3ActionPerformed
+
+    private void name1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_name1ActionPerformed
+
+    private void name2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_name2ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (databaru) {
+            try {
+                String sql = "INSERT INTO leaderboard VALUES ('%s', '%s', '%s')";
+                
+                sql = String.format(
+                        sql,
+                        name1.getText(),
+                        name2.getText(),
+                        name3.getText()
+                );
+                
+                Connection conn = koneksi.getKoneksiSQL();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                
+                pst.execute();
+                
+                JOptionPane.showMessageDialog(null, "Berhasil disimpan");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Gagal disimpan" + ex);
+            }
+        } else{
+             try {
+                String sql = "UPDATE leaderboard SET Nama='%s', Score='%s', Mode='%s'";
+                
+                sql = String.format(
+                        sql,
+                        name1.getText(),
+                        name2.getText(),
+                        name3.getText()
+                );
+                
+                Connection conn = koneksi.getKoneksiSQL();
+                PreparedStatement pst = conn.prepareStatement(sql);
+                
+                pst.execute();
+                
+                JOptionPane.showMessageDialog(null, "Berhasil diedit");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Gagal diedit" + ex);
+            }
+        }
+        
+        getData();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        databaru = true;
+        
+        name1.setText("");
+        name2.setText("");
+        name3.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,7 +307,16 @@ public class LeaderboardUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TScore;
     private javax.swing.JButton backLDBtn;
     private javax.swing.JLabel bgLD;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField name1;
+    private javax.swing.JTextField name2;
+    private javax.swing.JTextField name3;
     // End of variables declaration//GEN-END:variables
 }

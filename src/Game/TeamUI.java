@@ -17,7 +17,7 @@ public class TeamUI extends javax.swing.JFrame {
      */
     public TeamUI() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:\\JAVA OOP\\UASmk2\\src\\Assets\\ico.png");
+        ImageIcon img = new ImageIcon("src\\Assets\\ico.png");
         this.setIconImage(img.getImage());
         
         //Configuration for TeamUI :

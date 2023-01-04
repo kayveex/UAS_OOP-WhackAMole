@@ -14,7 +14,7 @@ public class MainMenuUI extends javax.swing.JFrame {
      */
     public MainMenuUI() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:\\JAVA OOP\\UASmk2\\src\\Assets\\ico.png");
+        ImageIcon img = new ImageIcon("src\\Assets\\ico.png");
         this.setIconImage(img.getImage());
         
         //Configuration for MainMenuUI :

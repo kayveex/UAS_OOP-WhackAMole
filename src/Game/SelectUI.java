@@ -4,6 +4,7 @@
  */
 package Game;
 
+import GameEngine.Frame;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,7 +18,7 @@ public class SelectUI extends javax.swing.JFrame {
      */
     public SelectUI() {
         initComponents();
-        ImageIcon img = new ImageIcon("D:\\JAVA OOP\\UASmk2\\src\\Assets\\ico.png");
+        ImageIcon img = new ImageIcon("src\\Assets\\ico.png");
         this.setIconImage(img.getImage());
         
         //Configuration for SelectUI :
@@ -103,14 +104,23 @@ public class SelectUI extends javax.swing.JFrame {
 
     private void easyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_easyBtnActionPerformed
         // TODO add your handling code here:
+        Frame easy = new Frame();
+        easy.gameEasy();
+        this.dispose();
     }//GEN-LAST:event_easyBtnActionPerformed
 
     private void medBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medBtnActionPerformed
         // TODO add your handling code here:
+        Frame med = new Frame();
+        med.gameMed();
+        this.dispose();
     }//GEN-LAST:event_medBtnActionPerformed
 
     private void hardBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hardBtnActionPerformed
         // TODO add your handling code here:
+        Frame hard = new Frame();
+        hard.gameHard();
+        this.dispose();
     }//GEN-LAST:event_hardBtnActionPerformed
 
     private void backDiffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backDiffBtnActionPerformed
