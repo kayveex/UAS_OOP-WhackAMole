@@ -1,4 +1,4 @@
-# Halo Semua, Kami Dari Kelompok 5 | 3A PSTI 2021
+# Halo Semua, Kami Dari Kelompok 2 | 3A PSTI 2021
 
 Game ini dibuat dalam rangka memenuhi tugas UAS Mata Kuliah Pemrograman Berbasis Objek yang diampu oleh Liptia Venica, S.T., M.T
 
