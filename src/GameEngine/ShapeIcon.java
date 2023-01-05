@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * An icon that contains a moveable shape. The shape will be placed into this Icon so it can be put in a JLabel || Ikon yang berisi bentuk bergerak. Bentuknya akan ditempatkan ke dalam Ikon ini sehingga bisa diletakkan di JLabel
+ *  Ikon yang berisi bentuk bergerak. Bentuknya akan ditempatkan ke dalam Ikon ini sehingga bisa diletakkan di JLabel
  *
  * @author Kelompok 2
  *
