@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.JOptionPane;
 
 /**
- * This is the Game Engine - Main Game
+ * This is the Game Engine - Main Game || Ini "Mesin Utama Game nya"
  */
 public class Frame extends JFrame {
 
@@ -16,13 +16,13 @@ public class Frame extends JFrame {
     private static final int HARD = 300;
     
     public void gameEasy() {
-        // Creates the Frame
+        // Buat objek frame dari JFrame (parent)
         JFrame frame = new JFrame("Easy Mode - Whack A Mole | 3A-PSTI");
         //Add icon on JFrame
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\GameEngine\\ico.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Set frame size
+        // Atur Framesize
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(1620,1080);
 
@@ -33,24 +33,24 @@ public class Frame extends JFrame {
         Cursor cursor = toolkit.createCustomCursor(scaledImage , new Point(frame.getX(), frame.getY()), "hammer");
         frame.setCursor(cursor);
 
-        // Sets background.png as wallpaper
+        // Mengatur gameUI.png jdi background
         JLabel background = new JLabel("");
         background.setIcon(new ImageIcon("src\\GameEngine\\gameUI.png"));
         background.setBounds(0,0, 1620, 1080);
 
-        // Creates the scene
+        // Membuat scene dari class SceneComponent
         final SceneComponent scene = new SceneComponent();
 
-        // ArrayList to store holes.
+        // ArrayList untuk menyimpan hole
         ArrayList<Hole> holes = new ArrayList<>();
 
         int speed = EASY;
         
-        // Plays the music after difficulty has been chosen and speed has been set
+        // Memainkan musik setelah kesulitan telah dipilih and kecepatan sudah diset
         Audio backgroundMusic = new Audio("src\\GameEngine\\MusicPBO.wav");
         backgroundMusic.play();
 
-        // Creates 5 Holes and Mole and adds them to the scene
+        // Membuat 5 Lubang dan tikus dan menambahkannya ke scene
         final Hole hole = new Hole(-100, 0, 0, 0);
         final Hole hole2 = new Hole(-100, 0, 0, 0);
         final Hole hole3 = new Hole(-100, 0, 0, 0);
@@ -66,7 +66,7 @@ public class Frame extends JFrame {
         scene.add(hole6);
         scene.add(mole);
 
-        // Sets up holes and mole on screen and adds animation timers to them so they can grow/shrink
+        // Membuat lubang dan tikus di layar dan menambahkan penghitung waktu animasi sehingga bisa membesar/menyusut
         final int DELAY = 0;
 
         Timer t = new Timer(DELAY, event -> {
@@ -86,14 +86,14 @@ public class Frame extends JFrame {
             // If any Hole shrinks down to 0 (board is clear and has no Holes) || LUBANG BERSIH GAAD DI PAPAN
             if (hole.getWidth() == 0) {
 
-                // If Timer is not already running, start it (for at the start)
+                // Jika Timer belum berjalan, mulai (untuk di awal)
                 if (!scene.hasTimerStarted())
                     scene.startTimer();
 
-                // Resets "earned a point" indicator
+                // Mereset indikator "mendapat poin".
                 scene.resetPointAnimation();
 
-                // If the timer hits 0 -> BG MUSIK STOP, SET TIMERNYA BERHENTI
+                //Jika timer mencapai 0 dtk
                 if (scene.getTime() == 0) {
                     backgroundMusic.stop();
                     scene.setTimerStarted(false);
@@ -120,44 +120,43 @@ public class Frame extends JFrame {
                                 e.printStackTrace();
                             }
                         }
-                        // If user chose to view scores, display a separate Frame showing list of highest scores
-                        // of this session.
+                        // Else If -> Exit dari game
                         else if (userChoice == 1) {
                             System.exit(0);
                         }
                     }
                 }
-                // Generate random coordinates for bottom left Hole
+                // Hasilkan koordinat acak untuk Lubang kiri bawah
                 hole.setX((int) (Math.random() * (screenSize.width / 5 - 125)) + 125);
                 hole.setY((int) (Math.random() * ((screenSize.height - 100) - screenSize.height * 5/7)) +
                         screenSize.height * 5/7);
 
-                // Generate random coordinates for bottom left middle Hole
+                // Hasilkan koordinat acak untuk Lubang tengah kiri bawah
                 hole2.setX((int) (Math.random() * (screenSize.width /2 - screenSize.width /4)) +
                         screenSize.width /4);
                 hole2.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4)) +
                         screenSize.height * 3/4));
 
-                // Generate random coordinates for bottom right middle Hole
+                // Hasilkan koordinat acak untuk Lubang tengah kanan bawah
                 hole3.setX((int) (Math.random() * (((screenSize.width * 3/4 - 50 )- screenSize.width /2 - 25) -
                         screenSize.width / 2 - 25)) +
                         screenSize.width * 4 / 5);
                 hole3.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4 + 5)) +
                         screenSize.height * 3/4 + 5));
 
-                // Generate random coordinates for bottom right Hole
+                // Hasilkan koordinat acak untuk Lubang kanan bawah
                 hole4.setX((int) (Math.random() *(125)) +
                         screenSize.width * 3/4 + 125);
                 hole4.setY((int) (Math.random() * ((screenSize.height - 125 ) - screenSize.height * 2 / 3 + 5 + 25)) +
                         screenSize.height * 2 / 3 + 25);
 
-                // Generate random coordinates for top left Hole
+                // Hasilkan koordinat acak untuk Lubang kiri atas
                 hole5.setX((int) (Math.random() * ((screenSize.width / 2 - 25)  - screenSize.width /4)) +
                         screenSize.width / 4);
                 hole5.setY((int) (Math.random() * ((screenSize.height * 3/4 - 100 ) - screenSize.height * 3/5 + 25)) +
                         screenSize.height  * 3 / 5 + 25);
 
-                // Generate random coordinates for top right Hole
+                // Hasilkan koordinat acak untuk Lubang kanan atas
                 hole6.setX((int) (Math.random() * ((screenSize.width * 6 /7 - 250) - screenSize.width * 4/7) - 25) +
                         screenSize.width * 4/7 - 25);
                 hole6.setY((int) (Math.random() * ((screenSize.height * 4/5 - 75 ) - screenSize.height * 3/5)) +
@@ -170,7 +169,7 @@ public class Frame extends JFrame {
                 holes.add(hole5);
                 holes.add(hole6);
 
-                // Pick the random hole for the mole to come out of
+                // Pilih lubang acak tempat tikus keluar
                 int random = (int) (Math.random() * 6 - 0);
                 Hole randomHole = holes.get(random);
                 mole.setX(randomHole.getX());
@@ -187,48 +186,42 @@ public class Frame extends JFrame {
         }
         );
         animator.start();
-        // Must appear in this order or else png wallpaper gets masked over holes & mole
+        // Harus muncul dalam urutan ini atau jika tidak, wallpaper png menutupi lubang & tikus
         frame.add(scene);
         frame.setVisible(true);
         frame.add(background);
     }
     
     public void gameMed() {
-        // Creates the Frame
+
         JFrame frame = new JFrame("Medium Mode - Whack A Mole | 3A-PSTI");
         //Add icon on JFrame
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\GameEngine\\ico.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Set frame size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(1620,1080);
 
-        // GANTI KURSOR JDI PALU
+  
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.getImage("src\\GameEngine\\palu1.png");
         Image scaledImage = image.getScaledInstance(1500, 1500, Image.SCALE_DEFAULT);
         Cursor cursor = toolkit.createCustomCursor(scaledImage , new Point(frame.getX(), frame.getY()), "hammer");
         frame.setCursor(cursor);
 
-        // Sets background.png as wallpaper
         JLabel background = new JLabel("");
         background.setIcon(new ImageIcon("src\\GameEngine\\gameUI.png"));
         background.setBounds(0,0, 1620, 1080);
 
-        // Creates the scene
         final SceneComponent scene = new SceneComponent();
 
-        // ArrayList to store holes.
         ArrayList<Hole> holes = new ArrayList<>();
 
         int speed = MEDIUM;
         
-        // Plays the music after difficulty has been chosen and speed has been set
         Audio backgroundMusic = new Audio("src\\GameEngine\\MusicPBO.wav");
         backgroundMusic.play();
 
-        // Creates 5 Holes and Mole and adds them to the scene
         final Hole hole = new Hole(-100, 0, 0, 0);
         final Hole hole2 = new Hole(-100, 0, 0, 0);
         final Hole hole3 = new Hole(-100, 0, 0, 0);
@@ -244,7 +237,6 @@ public class Frame extends JFrame {
         scene.add(hole6);
         scene.add(mole);
 
-        // Sets up holes and mole on screen and adds animation timers to them so they can grow/shrink
         final int DELAY = 0;
 
         Timer t = new Timer(DELAY, event -> {
@@ -259,24 +251,19 @@ public class Frame extends JFrame {
         mole.addAnimateTimer(t);
         t.start();
 
-        // RUN THE GAME...
         Timer animator = new Timer(speed, animationEvent -> {
-            // If any Hole shrinks down to 0 (board is clear and has no Holes) || LUBANG BERSIH GAAD DI PAPAN
+
             if (hole.getWidth() == 0) {
 
-                // If Timer is not already running, start it (for at the start)
                 if (!scene.hasTimerStarted())
                     scene.startTimer();
 
-                // Resets "earned a point" indicator
                 scene.resetPointAnimation();
 
-                // If the timer hits 0 -> BG MUSIK STOP, SET TIMERNYA BERHENTI
                 if (scene.getTime() == 0) {
                     backgroundMusic.stop();
                     scene.setTimerStarted(false);
 
-                    // ASK USER BUAT MILIH: RESTART ATAU EXIT
                     String[] options = {"Restart", "Exit"};
                     int userChoice = -1;
                   
@@ -285,7 +272,6 @@ public class Frame extends JFrame {
                                         "Your score is : " + scene.getScore()+ '\n' +"Don't Forget To Save Your Score Manually on Leaderboard!", "Your Results", JOptionPane.DEFAULT_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-                        // PILIHAN UNTUK RESTART GAME
                         if (userChoice == 0) {
                             scene.setScore(0);
                             scene.setTime(60);
@@ -298,44 +284,37 @@ public class Frame extends JFrame {
                                 e.printStackTrace();
                             }
                         }
-                        // If user chose to view scores, display a separate Frame showing list of highest scores
-                        // of this session.
                         else if (userChoice == 1) {
                             System.exit(0);
                         }
                     }
                 }
-                // Generate random coordinates for bottom left Hole
+
                 hole.setX((int) (Math.random() * (screenSize.width / 5 - 125)) + 125);
                 hole.setY((int) (Math.random() * ((screenSize.height - 100) - screenSize.height * 5/7)) +
                         screenSize.height * 5/7);
 
-                // Generate random coordinates for bottom left middle Hole
                 hole2.setX((int) (Math.random() * (screenSize.width /2 - screenSize.width /4)) +
                         screenSize.width /4);
                 hole2.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4)) +
                         screenSize.height * 3/4));
 
-                // Generate random coordinates for bottom right middle Hole
                 hole3.setX((int) (Math.random() * (((screenSize.width * 3/4 - 50 )- screenSize.width /2 - 25) -
                         screenSize.width / 2 - 25)) +
                         screenSize.width * 4 / 5);
                 hole3.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4 + 5)) +
                         screenSize.height * 3/4 + 5));
 
-                // Generate random coordinates for bottom right Hole
                 hole4.setX((int) (Math.random() *(125)) +
                         screenSize.width * 3/4 + 125);
                 hole4.setY((int) (Math.random() * ((screenSize.height - 125 ) - screenSize.height * 2 / 3 + 5 + 25)) +
                         screenSize.height * 2 / 3 + 25);
 
-                // Generate random coordinates for top left Hole
                 hole5.setX((int) (Math.random() * ((screenSize.width / 2 - 25)  - screenSize.width /4)) +
                         screenSize.width / 4);
                 hole5.setY((int) (Math.random() * ((screenSize.height * 3/4 - 100 ) - screenSize.height * 3/5 + 25)) +
                         screenSize.height  * 3 / 5 + 25);
 
-                // Generate random coordinates for top right Hole
                 hole6.setX((int) (Math.random() * ((screenSize.width * 6 /7 - 250) - screenSize.width * 4/7) - 25) +
                         screenSize.width * 4/7 - 25);
                 hole6.setY((int) (Math.random() * ((screenSize.height * 4/5 - 75 ) - screenSize.height * 3/5)) +
@@ -348,7 +327,6 @@ public class Frame extends JFrame {
                 holes.add(hole5);
                 holes.add(hole6);
 
-                // Pick the random hole for the mole to come out of
                 int random = (int) (Math.random() * 6 - 0);
                 Hole randomHole = holes.get(random);
                 mole.setX(randomHole.getX());
@@ -365,48 +343,41 @@ public class Frame extends JFrame {
         }
         );
         animator.start();
-        // Must appear in this order or else png wallpaper gets masked over holes & mole
+        
         frame.add(scene);
         frame.setVisible(true);
         frame.add(background);
     }
     
         public void gameHard() {
-        // Creates the Frame
+            
         JFrame frame = new JFrame("Hard Mode - Whack A Mole | 3A-PSTI");
         //Add icon on JFrame
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src\\GameEngine\\ico.png"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Set frame size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(1620,1080);
 
-        // GANTI KURSOR JDI PALU
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.getImage("src\\GameEngine\\palu1.png");
         Image scaledImage = image.getScaledInstance(1500, 1500, Image.SCALE_DEFAULT);
         Cursor cursor = toolkit.createCustomCursor(scaledImage , new Point(frame.getX(), frame.getY()), "hammer");
         frame.setCursor(cursor);
 
-        // Sets background.png as wallpaper
         JLabel background = new JLabel("");
         background.setIcon(new ImageIcon("src\\GameEngine\\gameUI.png"));
         background.setBounds(0,0, 1620, 1080);
 
-        // Creates the scene
         final SceneComponent scene = new SceneComponent();
 
-        // ArrayList to store holes.
         ArrayList<Hole> holes = new ArrayList<>();
 
         int speed = HARD;
         
-        // Plays the music after difficulty has been chosen and speed has been set
         Audio backgroundMusic = new Audio("src\\GameEngine\\MusicPBO.wav");
         backgroundMusic.play();
 
-        // Creates 5 Holes and Mole and adds them to the scene
         final Hole hole = new Hole(-100, 0, 0, 0);
         final Hole hole2 = new Hole(-100, 0, 0, 0);
         final Hole hole3 = new Hole(-100, 0, 0, 0);
@@ -422,7 +393,6 @@ public class Frame extends JFrame {
         scene.add(hole6);
         scene.add(mole);
 
-        // Sets up holes and mole on screen and adds animation timers to them so they can grow/shrink
         final int DELAY = 0;
 
         Timer t = new Timer(DELAY, event -> {
@@ -437,24 +407,23 @@ public class Frame extends JFrame {
         mole.addAnimateTimer(t);
         t.start();
 
-        // RUN THE GAME...
         Timer animator = new Timer(speed, animationEvent -> {
-            // If any Hole shrinks down to 0 (board is clear and has no Holes) || LUBANG BERSIH GAAD DI PAPAN
+
             if (hole.getWidth() == 0) {
 
-                // If Timer is not already running, start it (for at the start)
+
                 if (!scene.hasTimerStarted())
                     scene.startTimer();
 
-                // Resets "earned a point" indicator
+
                 scene.resetPointAnimation();
 
-                // If the timer hits 0 -> BG MUSIK STOP, SET TIMERNYA BERHENTI
+
                 if (scene.getTime() == 0) {
                     backgroundMusic.stop();
                     scene.setTimerStarted(false);
 
-                    // ASK USER BUAT MILIH: RESTART ATAU EXIT
+
                     String[] options = {"Restart", "Exit"};
                     int userChoice = -1;
                   
@@ -463,7 +432,7 @@ public class Frame extends JFrame {
                                         "Your score is : " + scene.getScore()+ '\n' +"Don't Forget To Save Your Score Manually on Leaderboard!", "Your Results", JOptionPane.DEFAULT_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-                        // PILIHAN UNTUK RESTART GAME
+
                         if (userChoice == 0) {
                             scene.setScore(0);
                             scene.setTime(60);
@@ -476,44 +445,37 @@ public class Frame extends JFrame {
                                 e.printStackTrace();
                             }
                         }
-                        // If user chose to view scores, display a separate Frame showing list of highest scores
-                        // of this session.
+
                         else if (userChoice == 1) {
                             System.exit(0);
                         }
                     }
                 }
-                // Generate random coordinates for bottom left Hole
                 hole.setX((int) (Math.random() * (screenSize.width / 5 - 125)) + 125);
                 hole.setY((int) (Math.random() * ((screenSize.height - 100) - screenSize.height * 5/7)) +
                         screenSize.height * 5/7);
 
-                // Generate random coordinates for bottom left middle Hole
                 hole2.setX((int) (Math.random() * (screenSize.width /2 - screenSize.width /4)) +
                         screenSize.width /4);
                 hole2.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4)) +
                         screenSize.height * 3/4));
 
-                // Generate random coordinates for bottom right middle Hole
                 hole3.setX((int) (Math.random() * (((screenSize.width * 3/4 - 50 )- screenSize.width /2 - 25) -
                         screenSize.width / 2 - 25)) +
                         screenSize.width * 4 / 5);
                 hole3.setY((int) (Math.random() * ((screenSize.height - 100 - screenSize.height * 3/4 + 5)) +
                         screenSize.height * 3/4 + 5));
 
-                // Generate random coordinates for bottom right Hole
                 hole4.setX((int) (Math.random() *(125)) +
                         screenSize.width * 3/4 + 125);
                 hole4.setY((int) (Math.random() * ((screenSize.height - 125 ) - screenSize.height * 2 / 3 + 5 + 25)) +
                         screenSize.height * 2 / 3 + 25);
 
-                // Generate random coordinates for top left Hole
                 hole5.setX((int) (Math.random() * ((screenSize.width / 2 - 25)  - screenSize.width /4)) +
                         screenSize.width / 4);
                 hole5.setY((int) (Math.random() * ((screenSize.height * 3/4 - 100 ) - screenSize.height * 3/5 + 25)) +
                         screenSize.height  * 3 / 5 + 25);
 
-                // Generate random coordinates for top right Hole
                 hole6.setX((int) (Math.random() * ((screenSize.width * 6 /7 - 250) - screenSize.width * 4/7) - 25) +
                         screenSize.width * 4/7 - 25);
                 hole6.setY((int) (Math.random() * ((screenSize.height * 4/5 - 75 ) - screenSize.height * 3/5)) +
@@ -526,7 +488,6 @@ public class Frame extends JFrame {
                 holes.add(hole5);
                 holes.add(hole6);
 
-                // Pick the random hole for the mole to come out of
                 int random = (int) (Math.random() * 6 - 0);
                 Hole randomHole = holes.get(random);
                 mole.setX(randomHole.getX());
@@ -543,7 +504,7 @@ public class Frame extends JFrame {
         }
         );
         animator.start();
-        // Must appear in this order or else png wallpaper gets masked over holes & mole
+
         frame.add(scene);
         frame.setVisible(true);
         frame.add(background);
