@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import javax.swing.JComponent;
 
 /**
- * A component that shows a scene composed of GrowableShapes displayed by Frame. Manages the score, timer, clicked sound
- * effect and determining whether the Mole has been clicked for points.
+* Komponen yang menampilkan adegan yang terdiri dari GrowableShapes yang ditampilkan oleh Frame. Mengelola skor, timer, suara klik
+* efek dan menentukan apakah tikus telah diklik untuk mendapatkan poin.
  */
 public class SceneComponent extends JComponent {
 
@@ -20,7 +20,7 @@ public class SceneComponent extends JComponent {
 	private Audio hitSound;
 	private boolean timerStarted;
 
-	// For showing user the Mole has been clicked and they earned a point
+	// Untuk menunjukkan kepada pengguna bahwa Tahi Lalat telah diklik dan mereka mendapatkan satu poin
 	private int moleX;
 	private int moleY;
 	private boolean moleHasBeenClicked;
@@ -43,8 +43,8 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 Adds a shape to the scene.
-	 @param s the shape to add
+	Menambahkan bentuk ke scene.
+	@param s bentuk yang akan ditambahkan
 	 */
 	public void add(GrowableShape s) {
 		shapes.add(s);
@@ -52,7 +52,7 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 * If the Mole has been clicked on, update the score, tell user they scored a point, and play sound effect
+	 * Jika Mole telah diklik, perbarui skor, beri tahu pengguna bahwa mereka mencetak satu poin, dan mainkan efek suara.
 	 */
 	private class MousePressedListener extends MouseAdapter {
 		public void mousePressed(MouseEvent event) {
@@ -73,7 +73,7 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 * Starts the 60 seconds Timer aka the duration of one game
+	 * Memulai Timer nya dari 60 detik
 	 */
 	public void startTimer() {
 		Thread thread = new Thread(new Runnable () {
@@ -93,7 +93,7 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 * Resets variables for the "earned a point" indicator since Holes and Mole are going to respawn to new locations
+	 * Mereset variabel untuk indikator "peroleh poin" karena Lubang dan tikus akan muncul kembali ke lokasi baru
 	 */
 	public void resetPointAnimation() {
 		moleHasBeenClicked = false;
@@ -102,7 +102,7 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 * Animates the "earned a point" indicator floating up after Mole has been clicked
+	 * Menganimasikan indikator "peroleh poin" yang muncul setelah tikus diklik
 	 */
 	public void pointAnimation() {
 		for( int i = 1; i < 3; i++ ) {
@@ -116,8 +116,8 @@ public class SceneComponent extends JComponent {
 	}
 
 	/**
-	 * Draws the Holes, Mole, SCORE label, TIME Label onto the screen
-	 * @param g the graphics context
+	* Menarik Lubang, tikus, label SKOR, Label WAKTU ke layar
+	* @param g konteks grafik
 	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -144,8 +144,8 @@ public class SceneComponent extends JComponent {
 	}
 	
 	/**
-	 * Checks whether the 60 second Timer has started
-	 * @return true if the Timer has started
+	* Memeriksa apakah Timer 60 detik telah dimulai
+	* @return true jika Timer telah dimulai
 	 */
 	public boolean hasTimerStarted() {
 		return timerStarted;
