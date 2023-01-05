@@ -15,7 +15,7 @@ public class Audio {
     private static String filePath;
 
     /**
-     * Constructs an Audio file
+     * Constructs an Audio file - Bikin Audio File
      * @param filepath the filepath to the audio file
      */
     public Audio(String filepath) {
@@ -52,9 +52,6 @@ public class Audio {
 
     /**
      * Restarts the audio file
-     * @throws IOException
-     * @throws LineUnavailableException
-     * @throws UnsupportedAudioFileException
      */
     public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         clip.stop();
@@ -67,9 +64,6 @@ public class Audio {
 
     /**
      * Resets the audio stream
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
      */
     public void resetAudioStream() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
